@@ -7,9 +7,10 @@ namespace DevTest
     {
         public void SetUp()
         {
-            UpdateCustomerById("1");
             SaveTest();
-            TestFind();
+            //UpdateCustomerById("1");
+            UpdateCustomerByInstance("1");
+            //TestFind();
         }
         private void SaveTest()
         {
@@ -57,5 +58,13 @@ namespace DevTest
             customer.Save();
             return true;
         }
+        private bool UpdateCustomerByInstance(string id)
+        {
+            Address address = new Address("509 Golden Gate Dr", "Richboro", "PA", "18954");
+            Customer customer = new Customer("Ilona", "Kruglikov", address,"1");
+            customer.Save();
+            return true;
+        }
+
     }
 }

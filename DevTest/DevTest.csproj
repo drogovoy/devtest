@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Address.cs" />
+    <Compile Include="Reflection.cs" />
     <Compile Include="Company.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="Entity.cs" />

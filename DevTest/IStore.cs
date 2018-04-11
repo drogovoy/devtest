@@ -6,6 +6,7 @@
         void Delete(T instance);
 
         T FindById(string id);
-        
+        long GetNewNumber();
+
     }
 }

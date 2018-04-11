@@ -1,7 +1,7 @@
 ﻿using DevTest;
 using NUnit.Framework;
 
-namespace ClassLibrary1
+namespace DevUnitTests
 {
     public class LogicTest
     {

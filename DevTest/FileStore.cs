@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
@@ -21,23 +22,25 @@ namespace DevTest
         public void Save(Entity instance)
         {
            
-            if (instance.numericId == 0)
+            if (instance.Number == 0)
             {
-                long maxId = 0;
-                if (_list.Any())
-                {
-                    maxId = _list.Max(r => r.numericId);
-                }
-
-                instance.numericId = maxId + 1;
-                _list.Add(instance as T);
+                instance.Number = GetNewNumber();
+                var clone = instance.Clone();
+                _list.Add(clone as T);
             }
             else
             {
-                //NO CODE for update logic if found with FIND and updated
+                
                 Entity entity = FindById(instance.Id);
-                entity = instance.Clone() as Entity;
-                //Verify that list got updated
+                if (entity != null)
+                {
+                    Update(entity, instance);
+                }
+                else
+                {
+                    var clone = instance.Clone();
+                    _list.Add(clone as T);
+                }
             }
             Save();
         }
@@ -46,6 +49,7 @@ namespace DevTest
         {
             Entity target = FindById(instance.Id);
             _list.Remove(target as T);
+            instance.Number = 0;
             Save();
         }
 
@@ -75,5 +79,20 @@ namespace DevTest
                 _list = JsonConvert.DeserializeObject<IList<T>>(json);
             }
         }
+
+        private void Update(Entity dest, Entity source)
+        {
+            source.CopyProperties(dest);
+        }
+        public long GetNewNumber()
+        {
+            long maxId = 0;
+            if (_list.Any())
+            {
+                maxId = _list.Max(r => r.Number);
+            }
+            return maxId + 1;
+        }
+        
     }
 }

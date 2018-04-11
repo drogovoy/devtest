@@ -25,7 +25,7 @@ namespace DevTest
         }
       
 
-        private static IEnumerable<Type> GetEntitySubclassTypes()
+        internal static IEnumerable<Type> GetEntitySubclassTypes()
         {
           
             IEnumerable<Type> typesOfIStore = from x in Assembly.GetAssembly(typeof(Entity)).GetTypes()
